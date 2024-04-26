@@ -1,56 +1,60 @@
-const cells = document.querySelectorAll('.cell');
-const resetButton = document.getElementById('reset-button');
-const winnerDisplay = document.getElementById('winner');
-let currentPlayer = 'X';
-let board = ['', '', '', '', '', '', '', '', ''];
+const cells = document.querySelectorAll(".cell");
+const resetButton = document.getElementById("reset-button");
+const winnerDisplay = document.getElementById("winner");
+let currentPlayer = "X";
 let winner = null;
 
-const player1 = 'X';
-const player2 = 'O';
-
+const player1 = "X";
+const player2 = "O";
 const winningCombos = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
+	[0, 1, 2],
+	[3, 4, 5],
+	[6, 7, 8],
+	[0, 3, 6],
+	[1, 4, 7],
+	[2, 5, 8],
+	[0, 4, 8],
+	[2, 4, 6],
 ];
 
+const board = [
+		[0,0,0],
+		[0,0,0],
+		[0,0,0]
+]
+
 function handleClick() {
-  cells.forEach(cell => {
-    cell.addEventListener('click', (event) => {
-      if (cell.textContent === '') {
-        cell.textContent = currentPlayer;
-        const winner = determineWinner(winningCombos);
-        if (currentPlayer === player1) {
-          currentPlayer = player2;
-        } else {
-          currentPlayer = player1;
-        }
-      } else {
-        console.log(
-            "This spot is already occupied. Please choose another spot.");
-      }
-    });
-  });
+	cells.forEach((cell, index) => {
+		cell.addEventListener("click", (event) => {
+			if (cell.textContent === "") {
+				cell.textContent = currentPlayer;
+				if (currentPlayer === player1) {
+					playerTurn(index, currentPlayer)
+					currentPlayer = player2;
+				} else {
+					playerTurn(index, currentPlayer);
+					currentPlayer = player1;
+				}
+			} else {
+				console.log(
+					"This spot is already occupied. Please choose another spot."
+				);
+			}
+		});
+	});
 }
 
-function determineWinner(winningCombos) {
-  for (i = 0; i < winningCombos.length; i++) {
+function playerTurn(index, currentPlayer) {
+	let cell = index;
+	let player = currentPlayer;
 
-    console.log(winningCombos[i][0]);
-    console.log(winningCombos[i][1]);
-    console.log(winningCombos[i][2]);
-  }
+	console.log(cell, player);
+
+console.log(board)
 }
 
-function playerMove() {
-      }
 
-// <div class="cell" id="cell-0">X</div>
-// [2, 4, 6]
-handleClick()
-determineWinner()
+for (let i = 0; i < winningCombos.length; i++) {
+	winningCombos[1][0] = winningCombos[i][0];
+}
+handleClick();
