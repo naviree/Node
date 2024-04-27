@@ -28,7 +28,7 @@ function handleClick() {
 		cell.addEventListener("click", (event) => {
 			if (cell.textContent === "") {
 				cell.textContent = currentPlayer;
-				if (currentPlayer === player1) {
+			if (currentPlayer === player1) {
 					playerTurn(index, currentPlayer)
 					currentPlayer = player2;
 				} else {
@@ -47,14 +47,27 @@ function handleClick() {
 function playerTurn(index, currentPlayer) {
 	let cell = index;
 	let player = currentPlayer;
+	let row = Math.floor(index / 3)
+	let column = index % 3;
+	console.log(row);
+	console.log(column)
+	board[row][column] = player;
 
-	console.log(cell, player);
-
-console.log(board)
 }
 
+function checkWinner(board) {
+	for (let boards of board) {
+		if(
+				board[winningCombos[0]]== board[winningCombos[1]]&&
+				board[winningCombos[1]]== board[winningCombos[2]]&&
+				board[winningCombos[0]]!= ''
+		) {
+			return true;
+		}
+	}
+	return false;
+}
 
 for (let i = 0; i < winningCombos.length; i++) {
-	winningCombos[1][0] = winningCombos[i][0];
 }
 handleClick();
