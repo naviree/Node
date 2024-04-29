@@ -52,22 +52,25 @@ function playerTurn(index, currentPlayer) {
 	console.log(row);
 	console.log(column)
 	board[row][column] = player;
-
+	console.log(board)
+	let winner = checkWinner(board);
+	if(winner) {
+		console.log("You win")
+	}
 }
 
 function checkWinner(board) {
-	for (let boards of board) {
-		if(
-				board[winningCombos[0]]== board[winningCombos[1]]&&
-				board[winningCombos[1]]== board[winningCombos[2]]&&
-				board[winningCombos[0]]!= ''
-		) {
-			return true;
+	for (let combo of winningCombos) {
+		const[a, b, c] = combo;
+		if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+		 return true;
 		}
 	}
-	return false;
+	return null;
 }
+
 
 for (let i = 0; i < winningCombos.length; i++) {
 }
 handleClick();
+checkWinner(board)
