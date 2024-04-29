@@ -18,18 +18,18 @@ const winningCombos = [
 ];
 
 const board = [
-		[0,0,0],
-		[0,0,0],
-		[0,0,0]
-]
+	[0, 0, 0],
+	[0, 0, 0],
+	[0, 0, 0],
+];
 
 function handleClick() {
 	cells.forEach((cell, index) => {
 		cell.addEventListener("click", (event) => {
 			if (cell.textContent === "") {
 				cell.textContent = currentPlayer;
-			if (currentPlayer === player1) {
-					playerTurn(index, currentPlayer)
+				if (currentPlayer === player1) {
+					playerTurn(index, currentPlayer);
 					currentPlayer = player2;
 				} else {
 					playerTurn(index, currentPlayer);
@@ -47,30 +47,26 @@ function handleClick() {
 function playerTurn(index, currentPlayer) {
 	let cell = index;
 	let player = currentPlayer;
-	let row = Math.floor(index / 3)
+	let row = Math.floor(index / 3);
 	let column = index % 3;
 	console.log(row);
-	console.log(column)
+	console.log(column);
 	board[row][column] = player;
-	console.log(board)
-	let winner = checkWinner(board);
-	if(winner) {
-		console.log("You win")
+	console.log(board);
+	winner = checkWinner(board);
+	if (winner) {
+		console.log("You win");
 	}
 }
 
 function checkWinner(board) {
 	for (let combo of winningCombos) {
-		const[a, b, c] = combo;
+		const [a, b, c] = combo;
 		if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-		 return true;
+			return true;
 		}
 	}
 	return null;
 }
 
-
-for (let i = 0; i < winningCombos.length; i++) {
-}
 handleClick();
-checkWinner(board)
