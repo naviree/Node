@@ -2,19 +2,50 @@ const cells = document.querySelectorAll(".cell");
 const resetButton = document.getElementById("reset-button");
 const winnerDisplay = document.getElementById("winner");
 let currentPlayer = "X";
-let winner = null;
 
 const player1 = "X";
 const player2 = "O";
 const winningCombos = [
-	[0, 1, 2],
-	[3, 4, 5],
-	[6, 7, 8],
-	[0, 3, 6],
-	[1, 4, 7],
-	[2, 5, 8],
-	[0, 4, 8],
-	[2, 4, 6],
+	[
+		[0, 0],
+		[0, 1],
+		[0, 2],
+	],
+	[
+		[1, 0],
+		[1, 1],
+		[1, 2],
+	],
+	[
+		[2, 0],
+		[2, 1],
+		[2, 2],
+	],
+	[
+		[0, 0],
+		[1, 0],
+		[2, 0],
+	],
+	[
+		[0, 1],
+		[1, 1],
+		[2, 1],
+	],
+	[
+		[0, 2],
+		[1, 2],
+		[2, 2],
+	],
+	[
+		[0, 0],
+		[1, 1],
+		[2, 2],
+	],
+	[
+		[0, 2],
+		[1, 1],
+		[2, 0],
+	],
 ];
 
 const board = [
@@ -45,25 +76,23 @@ function handleClick() {
 }
 
 function playerTurn(index, currentPlayer) {
-	let cell = index;
 	let player = currentPlayer;
 	let row = Math.floor(index / 3);
 	let column = index % 3;
-	console.log(row);
-	console.log(column);
+
 	board[row][column] = player;
-	console.log(board);
-	winner = checkWinner(board);
-	if (winner) {
-		console.log("You win");
-	}
+	checkWinner(board);
 }
 
 function checkWinner(board) {
 	for (let combo of winningCombos) {
-		const [a, b, c] = combo;
-		if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-			return true;
+		const [[a1, a2], [b1, b2], [c1, c2]] = combo;
+		if (
+			board[a1][a2] &&
+			board[a1][a2] === board[b1][b2] &&
+			board[a1][a2] === board[c1][c2]
+		) {
+			console.log("You won!");
 		}
 	}
 	return null;
