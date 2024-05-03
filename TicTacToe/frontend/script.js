@@ -58,6 +58,7 @@ const board = [
 resetButton.addEventListener("click", () => {
 	board.forEach((row) => row.fill(0));
 	cells.forEach((cell) => (cell.textContent = ""));
+	winnerDisplay.textContent = "";
 	currentPlayer = "X";
 });
 
@@ -101,7 +102,7 @@ function checkWinner(board) {
 			board[a1][a2] === board[b1][b2] &&
 			board[a1][a2] === board[c1][c2]
 		) {
-			console.log("You won!");
+			winnerDisplay.textContent = `Player ${board[a1][a2]} wins!`;
 		}
 	}
 	isTie(board);
@@ -115,7 +116,7 @@ function isTie(board) {
 			}
 		}
 	}
-	console.log("It's a tie!");
+	winnerDisplay.textContent = "It's a tie!";
 	return true;
 }
 
