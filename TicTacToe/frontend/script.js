@@ -1,6 +1,7 @@
 const cells = document.querySelectorAll(".cell");
 const resetButton = document.getElementById("reset-button");
 const winnerDisplay = document.getElementById("winner");
+
 let currentPlayer = "X";
 
 const player1 = "X";
@@ -54,6 +55,12 @@ const board = [
 	[0, 0, 0],
 ];
 
+resetButton.addEventListener("click", () => {
+	board.forEach((row) => row.fill(0));
+	cells.forEach((cell) => (cell.textContent = ""));
+	currentPlayer = "X";
+});
+
 function handleClick() {
 	cells.forEach((cell, index) => {
 		cell.addEventListener("click", (event) => {
@@ -76,12 +83,14 @@ function handleClick() {
 }
 
 function playerTurn(index, currentPlayer) {
-	let player = currentPlayer;
-	let row = Math.floor(index / 3);
-	let column = index % 3;
+	const player = currentPlayer;
+	const row = Math.floor(index / 3);
+	const column = index % 3;
 
 	board[row][column] = player;
 	checkWinner(board);
+	if (isTie(board)) {
+	}
 }
 
 function checkWinner(board) {
@@ -95,7 +104,19 @@ function checkWinner(board) {
 			console.log("You won!");
 		}
 	}
+	isTie(board);
 	return null;
+}
+function isTie(board) {
+	for (let row of board) {
+		for (let cell of row) {
+			if (cell === 0) {
+				return false;
+			}
+		}
+	}
+	console.log("It's a tie!");
+	return true;
 }
 
 handleClick();
